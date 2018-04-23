@@ -44,13 +44,6 @@ abstract class Model implements ArrayAccess, Arrayable, Cacheable, Jsonable, Jso
     protected $restEndpoints = [];
 
     /**
-     * Should requests for this model be made using https.
-     *
-     * @var bool
-     */
-    protected $https = true;
-
-    /**
      * The name of the attribute to use as the primary key.
      *
      * Defaults to 'id'.
@@ -228,16 +221,6 @@ abstract class Model implements ArrayAccess, Arrayable, Cacheable, Jsonable, Jso
     public function getRestEndpoints()
     {
         return $this->restEndpoints;
-    }
-
-    /**
-     * Should communication for this model be done over https?
-     *
-     * @return bool
-     */
-    public function isHttps()
-    {
-        return $this->https;
     }
 
     /**
@@ -499,8 +482,7 @@ abstract class Model implements ArrayAccess, Arrayable, Cacheable, Jsonable, Jso
 
         // Create a new HTTP client if we do not have one.
         if (empty($this->httpClient)) {
-            $uriParts = parse_url($this->baseUri);
-            $this->httpClient = new Client(['base_uri' => sprintf('%s://%s', ($this->isHttps()) ? 'https' : 'http', $uriParts['path'])]);
+            $this->httpClient = new Client(['base_uri' => $this->baseUri]);
         }
 
         return $this->httpClient;
