@@ -483,6 +483,17 @@ abstract class Model implements ArrayAccess, Arrayable, Cacheable, Jsonable, Jso
     {
         // Ensure we have a base URI.
         if (empty($this->baseUri)) {
+            // Build the name of the environment variable to check.
+            $envVar = strtoupper(sprintf('REMOTE_MODEL_%s_BASE_URL', $this->getPluralName()));
+
+            // Override the URL if we have an environment variable available.
+            if (!empty(getenv($envVar))) {
+                $this->baseUri = getenv($envVar);
+            }
+        }
+
+        // Ensure we have a base URI.
+        if (empty($this->baseUri)) {
             throw new \RuntimeException('Cannot get HTTP client. No base URI specified.');
         }
 
