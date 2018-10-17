@@ -1,5 +1,5 @@
 {
-  "name": "lushdigital/microservice-remote-models",
+  "name": "habil/microservice-remote-models",
   "description": "A Lumen package to provide a familiar model paradigm for distributed data.",
   "keywords": ["framework", "laravel", "lumen", "microservice", "grpc", "models"],
   "license": "MIT",
